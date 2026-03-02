@@ -1,0 +1,212 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About Us | Fabareel Kreatif">
+    <main>
+        <section class="hero-section" style="min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 4rem;">
+            <h1 class="gsap-hero" style="font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 1rem;">
+                Our <span style="color: var(--text-muted);">Story</span>
+            </h1>
+            <p class="gsap-hero" style="font-size: 1.25rem; max-width: 600px; color: #d1d5db;">
+                We are more than just a production house. We are your strategic communication partners.
+            </p>
+        </section>
+
+        <section class="gsap-section" style="max-width: 1000px; margin-top: 2rem;">
+            <div class="content-grid">
+                
+                <div class="story-text">
+                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">A Dynamic Bumiputera Enterprise</h2>
+                    <p>
+                        Fabareel Kreatif Sdn Bhd is a Bumiputera-owned company specializing in high-end video and graphic production. Our services encompass the entire creative journey—from the initial presentation of ideas to video recording, voiceovers, and comprehensive post-production integrated with stunning graphic artwork.
+                    </p>
+                    <p>
+                        What sets us apart is our workforce. We are heavily driven by today's dynamic young talents who bring fresh perspectives, modern techniques, and relentless energy to every single project.
+                    </p>
+                    <blockquote style="border-left: 4px solid white; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: var(--text-muted);">
+                        "We remain focused on fulfilling every client's desire to achieve their targeted objectives. Your problem-solving path might be here. Contact us to help you."
+                    </blockquote>
+                </div>
+
+                <div class="vm-sidebar">
+                    <div class="vm-box">
+                        <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.3rem;">Our Vision</h3>
+                        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                            To establish a production company that consistently meets demands, remains customer-friendly, and operates with high efficiency and capability in executing every entrusted project.
+                        </p>
+                    </div>
+                    
+                    <div class="vm-box" style="margin-top: 1.5rem;">
+                        <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.3rem;">Our Mission</h3>
+                        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+                            To deliver the absolute best results while ensuring every product produced fulfills our clients' specific needs and core objectives.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="team" class="gsap-section" style="max-width: 1200px; text-align: center; margin-top: 8rem; margin-bottom: 4rem;">
+            <span style="color: var(--text-muted); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">The Crew</span>
+            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 3rem;">Meet Our Team</h2>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="/images/asean-summit.jpg" alt="Muhamad Jazzli" class="team-img" loading="lazy" />
+                    </div>
+                    <div class="team-info">
+                        <h3>Muhamad Jazzli</h3>
+                        <p class="role">Founder & Director</p>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="/images/studio-desk.jpg" alt="Broadcast Team" class="team-img" loading="lazy" />
+                    </div>
+                    <div class="team-info">
+                        <h3>Broadcast Unit</h3>
+                        <p class="role">Studio & Live Event Experts</p>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="/images/japan-crew.jpg" alt="Documentary Team" class="team-img" loading="lazy" />
+                    </div>
+                    <div class="team-info">
+                        <h3>Documentary Unit</h3>
+                        <p class="role">Global Storytellers</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <style>
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 850px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .vm-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .vm-box {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid #334155;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        /* --- Meet Our Team Styles --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-card {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .team-img-wrapper {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .team-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .team-card:hover .team-img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .team-info {
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.8));
+        }
+
+        .team-info h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+
+        .team-info .role {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+    </style>
+</Layout>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from(".gsap-hero", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        delay: 0.2
+    });
+
+    gsap.utils.toArray('.gsap-section').forEach((section: any) => {
+        gsap.from(section, {
+            scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out"
+        });
+    });
+</script>

@@ -1,0 +1,191 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// We categorize the clients to make the agency look highly structured and premium.
+// Extracted directly from the official company profile.
+const clients = {
+  broadcast: [
+    { name: "RTM", img: "/images/clients/rtm.webp" },
+    { name: "TV OKEY", img: "/images/clients/okey.webp" },
+    { name: "SelangorFM", img: "/images/clients/selangorfm.webp" },
+    { name: "KLFM 97.2", img: "/images/clients/klfm.webp" },
+    { name: "999 (Talian Kecemasan)", img: "/images/clients/999.webp" }
+  ],
+  government: [
+    { name: "Jabatan Perangkaan Malaysia", img: "/images/clients/jpm.webp" },
+    { name: "MARA", img: "/images/clients/mara.webp" },
+    { name: "MAIWP", img: "/images/clients/maiwp.webp" },
+    { name: "Hijrah Selangor", img: "/images/clients/hijrah.webp" },
+    { name: "Koperasi Warga Hijrah", img: "/images/clients/kohijrah.webp" }
+  ],
+  tourismCorporate: [
+    { name: "Air Asia", img: "/images/clients/airasia.webp" },
+    { name: "Tourism Johor", img: "/images/clients/johor.webp" },
+    { name: "Kelantan Tourism", img: "/images/clients/kelantan.webp" },
+    { name: "The Mines Resort & Golf", img: "/images/clients/mines.webp" },
+    { name: "MURI", img: "/images/clients/muri.webp" }
+  ],
+  education: [
+    { name: "Universiti Malaya", img: "/images/clients/um.webp" },
+    { name: "Universiti Kebangsaan Malaysia", img: "/images/clients/ukm.webp" }
+  ]
+};
+---
+
+<Layout title="Our Clients | Fabareel Kreatif">
+    <main>
+        <section class="hero-section" style="min-height: 40vh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 4rem;">
+            <h1 class="gsap-hero" style="font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 1rem;">
+                Our <span style="color: var(--text-muted);">Partners</span>
+            </h1>
+            <p class="gsap-hero" style="font-size: 1.25rem; max-width: 600px; color: #d1d5db;">
+                Trusted by industry leaders, government agencies, and national broadcasters to deliver uncompromising visual excellence.
+            </p>
+        </section>
+
+        <section class="gsap-section" style="max-width: 1200px; margin-top: 2rem; margin-bottom: 6rem;">
+            
+            <div class="client-category">
+                <h2 class="category-title">Broadcast & Media</h2>
+                <div class="client-grid">
+                    {clients.broadcast.map((client) => (
+                        <div class="client-card">
+                            <img src={client.img} alt={client.name} onerror={`this.style.display='none'; this.nextElementSibling.style.display='block';`} loading="lazy" />
+                            <span class="client-name-fallback">{client.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div class="client-category">
+                <h2 class="category-title">Government & Agencies</h2>
+                <div class="client-grid">
+                    {clients.government.map((client) => (
+                        <div class="client-card">
+                            <img src={client.img} alt={client.name} onerror={`this.style.display='none'; this.nextElementSibling.style.display='block';`} loading="lazy" />
+                            <span class="client-name-fallback">{client.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div class="client-category">
+                <h2 class="category-title">Tourism & Corporate</h2>
+                <div class="client-grid">
+                    {clients.tourismCorporate.map((client) => (
+                        <div class="client-card">
+                            <img src={client.img} alt={client.name} onerror={`this.style.display='none'; this.nextElementSibling.style.display='block';`} loading="lazy" />
+                            <span class="client-name-fallback">{client.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div class="client-category">
+                <h2 class="category-title">Universities & Education</h2>
+                <div class="client-grid">
+                    {clients.education.map((client) => (
+                        <div class="client-card">
+                            <img src={client.img} alt={client.name} onerror={`this.style.display='none'; this.nextElementSibling.style.display='block';`} loading="lazy" />
+                            <span class="client-name-fallback">{client.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <style>
+        .client-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #334155;
+            display: inline-block;
+        }
+
+        .client-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .client-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid #334155;
+            height: 120px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .client-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        /* Image styling for when you have the actual logos */
+        .client-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(0.7); /* Makes logos look uniform and sleek */
+            transition: filter 0.3s ease;
+        }
+
+        .client-card:hover img {
+            filter: grayscale(0%) opacity(1);
+        }
+
+        /* The text fallback if the image is missing */
+        .client-name-fallback {
+            display: none; /* Hidden by default, shown by the onerror script */
+            color: var(--text-muted);
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .client-card:hover .client-name-fallback {
+            color: white;
+        }
+    </style>
+</Layout>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from(".gsap-hero", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        delay: 0.2
+    });
+
+    gsap.utils.toArray('.client-category').forEach((section: any) => {
+        gsap.from(section, {
+            scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out"
+        });
+    });
+</script>

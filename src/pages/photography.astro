@@ -1,0 +1,302 @@
+---
+// src/pages/photography.astro
+import Layout from '../layouts/Layout.astro';
+
+// We added an 'id' to each category so the Javascript knows which gallery to open.
+// You can also add an array of 'galleryImages' here later when you have more photos.
+const categories = [
+  { id: "weddings", title: "Weddings & Engagements", desc: "Capturing your timeless moments.", img: "/images/wedding.webp" },
+  { id: "corporate", title: "Corporate & Government", desc: "VIP summits and executive events.", img: "/images/vip-anwar.webp" },
+  { id: "documentary", title: "Documentary & Photojournalism", desc: "Raw storytelling across the globe.", img: "/images/africa-doc.webp" },
+  { id: "broadcast", title: "National TV & Broadcast", desc: "Behind-the-scenes and set stills.", img: "/images/studio-desk.webp" },
+  { id: "ceremony", title: "Cultural & Ceremonial", desc: "Honoring traditions and heritage.", img: "/images/ceremony.webp" },
+  { id: "commercial", title: "Commercial & Advertising", desc: "High-end product and brand shoots.", img: "/images/commercial.webp" },
+  { id: "live", title: "Live Concerts & Events", desc: "High-energy crowd and stage coverage.", img: "/images/live-event.webp" },
+  { id: "portrait", title: "Studio Portraiture", desc: "Professional headshots and editorial.", img: "/images/portrait.webp" }
+];
+---
+
+<Layout title="Photography | Fabareel Kreatif">
+  <main>
+    <section class="photo-hero" style="min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 4rem;">
+      <h1 class="gsap-hero" style="font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 1rem;">
+        Photography <span style="color: var(--text-muted);">Services</span>
+      </h1>
+      <p class="gsap-hero" style="font-size: 1.25rem; max-width: 600px; color: #d1d5db;">
+        From intimate weddings to international documentaries and national broadcasts. We freeze the moments that matter most.
+      </p>
+    </section>
+
+    <section class="category-section" style="padding-top: 0;">
+      <div class="category-grid">
+        {categories.map((cat) => (
+          <div class="category-card gsap-card open-modal-btn" data-target={cat.id}>
+            <div class="img-container" style="background-color: #1e293b;">
+              <img src={cat.img} alt={cat.title} loading="lazy" />
+            </div>
+            <div class="card-overlay">
+              <h3 class="card-title">{cat.title}</h3>
+              <p class="card-desc">{cat.desc}</p>
+              <span class="view-btn">View Gallery &rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <div id="gallery-modal" class="modal-overlay">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h2 id="modal-title" style="font-size: 2rem; margin: 0;">Category Title</h2>
+          <button id="close-modal" class="close-btn">&times;</button>
+        </div>
+
+        <div class="modal-gallery-grid">
+            <img src="/images/africa-doc.webp" alt="Gallery Image 1" class="modal-img" loading="lazy" />
+            <img src="/images/studio-desk.webp" alt="Gallery Image 2" class="modal-img" loading="lazy" />
+            <img src="/images/vip-anwar.webp" alt="Gallery Image 3" class="modal-img" loading="lazy" />
+            <img src="/images/ceremony.webp" alt="Gallery Image 4" class="modal-img" loading="lazy" />
+            <img src="/images/japan-crew.webp" alt="Gallery Image 5" class="modal-img" loading="lazy" />
+            <img src="/images/wedding.webp" alt="Gallery Image 6" class="modal-img" loading="lazy" />
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</Layout>
+
+<style>
+  /* --- Grid Layout for Categories --- */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-card {
+    position: relative;
+    height: 400px; 
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .img-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(40%) brightness(0.7);
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.7s ease;
+  }
+
+  .category-card:hover img {
+    transform: scale(1.08);
+    filter: grayscale(0%) brightness(0.9);
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    color: white;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+
+  .card-desc {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    margin-bottom: 1rem;
+  }
+
+  .view-btn {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+  }
+
+  .category-card:hover .card-title,
+  .category-card:hover .card-desc,
+  .category-card:hover .view-btn {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* === LIGHTBOX MODAL STYLES === */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(10px); /* Glass aesthetic */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  /* Add this class via JS to open the modal */
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: 1200px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(30px);
+    transition: transform 0.4s ease;
+  }
+
+  .modal-overlay.active .modal-content {
+    transform: translateY(0);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .close-btn:hover {
+    color: var(--text-muted);
+  }
+
+  /* Masonry-style internal grid */
+  .modal-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    overflow-y: auto; /* Lets the user scroll inside the modal if there are many photos */
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  /* Custom Scrollbar for the modal */
+  .modal-gallery-grid::-webkit-scrollbar {
+    width: 8px;
+  }
+  .modal-gallery-grid::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+  }
+  .modal-gallery-grid::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+  }
+
+  .modal-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .modal-img:hover {
+    transform: scale(1.02);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // --- GSAP Animations ---
+  gsap.from(".gsap-hero", { y: 30, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2 });
+  gsap.from(".gsap-card", { scrollTrigger: { trigger: ".category-grid", start: "top 85%" }, y: 50, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" });
+
+  // --- Modal Logic ---
+  const modal = document.getElementById('gallery-modal');
+  const closeModalBtn = document.getElementById('close-modal');
+  const modalTitle = document.getElementById('modal-title');
+  const openBtns = document.querySelectorAll('.open-modal-btn');
+
+  // Open Modal
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Get the title from the card we clicked and set it in the modal
+      const titleElement = btn.querySelector('.card-title');
+      if (titleElement) {
+        modalTitle.textContent = titleElement.textContent;
+      }
+      
+      // Prevent body scrolling while modal is open
+      document.body.style.overflow = 'hidden'; 
+      modal.classList.add('active');
+    });
+  });
+
+  // Close Modal (via button)
+  closeModalBtn.addEventListener('click', () => {
+    document.body.style.overflow = ''; // Restore scrolling
+    modal.classList.remove('active');
+  });
+
+  // Close Modal (by clicking outside the content)
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      document.body.style.overflow = '';
+      modal.classList.remove('active');
+    }
+  });
+
+  // Close Modal (via Escape key)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      document.body.style.overflow = '';
+      modal.classList.remove('active');
+    }
+  });
+</script>     
