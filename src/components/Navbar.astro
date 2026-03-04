@@ -18,22 +18,22 @@
         <div class="mega-menu">
           <div class="mega-content">
             
-            <div class="mega-grid">
-              <a href="/photography" class="mega-item">
-                <img src="/images/wedding.jpg" alt="Weddings" loading="lazy" onerror="this.style.display='none';" />
-                <span>Weddings</span>
+            <div class="mega-grid-text">
+              <a href="/photography" class="mega-text-item">
+                <span class="mega-main-text">Weddings</span>
+                <span class="mega-arrow">&rarr;</span>
               </a>
-              <a href="/photography" class="mega-item">
-                <img src="/images/vip-anwar.jpg" alt="Corporate" loading="lazy" onerror="this.style.display='none';" />
-                <span>Corporate</span>
+              <a href="/photography" class="mega-text-item">
+                <span class="mega-main-text">Corporate</span>
+                <span class="mega-arrow">&rarr;</span>
               </a>
-              <a href="/photography" class="mega-item">
-                <img src="/images/africa-doc.jpg" alt="Documentary" loading="lazy" onerror="this.style.display='none';" />
-                <span>Documentary</span>
+              <a href="/photography" class="mega-text-item">
+                <span class="mega-main-text">Documentary</span>
+                <span class="mega-arrow">&rarr;</span>
               </a>
-              <a href="/photography" class="mega-item">
-                <img src="/images/studio-desk.jpg" alt="Broadcast" loading="lazy" onerror="this.style.display='none';" />
-                <span>Broadcast</span>
+              <a href="/photography" class="mega-text-item">
+                <span class="mega-main-text">Broadcast</span>
+                <span class="mega-arrow">&rarr;</span>
               </a>
             </div>
 
@@ -79,17 +79,30 @@
 </header>
   
 <style>
+  /* 1. Default State: Transparent */
   .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(10, 10, 10, 0.7);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  /* 2. THE FIX: Solid state applied when scrolled OR when the mouse hovers over the navbar */
+  .site-header.nav-scrolled,
+  .site-header:hover {
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
+  }
+
+  /* 3. Hidden State */
+  .site-header.nav-hidden {
+    transform: translateY(-100%);
   }
 
   .nav-container {
@@ -166,14 +179,16 @@
     top: 100%; 
     left: 0;
     width: 100vw;
-    background: #0a0a0a; 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* Matches the solid header perfectly so they blend together */
+    background: rgba(10, 10, 10, 0.95); 
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
     pointer-events: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   }
 
   .mega-menu::before {
@@ -198,42 +213,55 @@
     margin: 0 auto;
     padding: 3rem 2rem;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 4rem;
   }
 
-  .mega-grid {
+  /* NEW: Typography-based Grid */
+  .mega-grid-text {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
 
-  .mega-item {
+  .mega-text-item {
     text-decoration: none;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    transition: transform 0.2s ease;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: border-color 0.3s ease;
   }
 
-  .mega-item:hover {
-    transform: translateY(-5px);
-  }
-
-  .mega-item img {
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background-color: #1e293b; 
-  }
-
-  .mega-item span {
+  .mega-main-text {
     color: white;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .mega-arrow {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+  }
+
+  .mega-text-item:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .mega-text-item:hover .mega-main-text {
+    transform: translateX(10px);
+    color: #e5e7eb;
+  }
+
+  .mega-text-item:hover .mega-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: white;
   }
 
   .mega-sidebar {
@@ -339,4 +367,27 @@
       mobileMenu.classList.toggle('active');
     });
   }
+
+  const header = document.querySelector('.site-header');
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener('scroll', () => {
+    if (mobileMenu && mobileMenu.classList.contains('active')) return;
+
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 50) {
+      header.classList.add('nav-scrolled');
+    } else {
+      header.classList.remove('nav-scrolled');
+    }
+
+    if (currentScrollY > lastScrollY && currentScrollY > 300) {
+      header.classList.add('nav-hidden');
+    } else {
+      header.classList.remove('nav-hidden');
+    }
+
+    lastScrollY = currentScrollY;
+  }, { passive: true }); 
 </script>
