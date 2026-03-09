@@ -259,4 +259,47 @@ export const photos = [
         }
     }
 </style>
+<script>
+    // Filtering Logic for the Photography Grid
+    if (typeof window !== "undefined") {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const masonryItems = document.querySelectorAll('.masonry-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 1. Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                
+                // 2. Add active class to clicked button
+                btn.classList.add('active');
+
+                // 3. Get the category we want to filter by
+                const filterValue = btn.getAttribute('data-filter');
+
+                // 4. Show/Hide items based on category
+                masonryItems.forEach((item) => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (filterValue === 'all' || itemCategory === filterValue) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+        // NEW: Check for URL parameters to auto-filter on page load
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterParam = urlParams.get('filter');
+        
+        if (filterParam) {
+            // Find the button that matches the URL parameter
+            const targetBtn = document.querySelector(`.filter-btn[data-filter="${filterParam}"]`);
+            if (targetBtn) {
+                // Programmatically click it to trigger your existing layout logic
+                targetBtn.click(); 
+            }
+        }
+    }
+</script>
 
