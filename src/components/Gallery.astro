@@ -19,7 +19,13 @@ const photos = [
   <div class="bento-grid">
     {photos.map((photo) => (
       <div class={`gallery-item gsap-gallery-item ${photo.span}`}>
-        <img src={photo.src} alt={photo.alt} loading="lazy" />
+        <img 
+          src={photo.src} 
+          alt={photo.alt} 
+          loading="lazy" 
+          width="600" 
+          height="400" 
+        />
         <div class="overlay">
           <span class="overlay-text">{photo.alt}</span>
         </div>

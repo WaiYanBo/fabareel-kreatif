@@ -50,7 +50,14 @@ const clients = {
                 <div class="client-grid">
                     {clients.broadcast.map((client) => (
                         <div class="client-card">
-                            <img src={client.img} alt={client.name} onerror={`this.style.display='none'; this.nextElementSibling.style.display='block';`} loading="lazy" />
+                            <img 
+                                src={client.img} 
+                                alt={client.name} 
+                                width="200" 
+                                height="100" 
+                                loading="lazy" 
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='block';" 
+                            />
                             <span class="client-name-fallback">{client.name}</span>
                         </div>
                     ))}
@@ -161,31 +168,3 @@ const clients = {
     </style>
 </Layout>
 
-<script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.from(".gsap-hero", {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out",
-        delay: 0.2
-    });
-
-    gsap.utils.toArray('.client-category').forEach((section: any) => {
-        gsap.from(section, {
-            scrollTrigger: {
-                trigger: section,
-                start: "top 85%",
-            },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power2.out"
-        });
-    });
-</script>

@@ -30,12 +30,17 @@ const btsPhotos = [
                 <video 
                     class="showreel-video"
                     controls 
+                    controlsList="nodownload"
                     playsinline 
                     autoplay
                     muted
                     loop
                     preload="metadata"
                 >
+                    <source src="/videos/videography.mp4" type="video/mp4" />
+                    <source src="/videos/videography.webm" type="video/webm" />
+                    Your browser does not support the video tag.
+                </video>
                     <source src="/videos/videography.webm" type="video/webm" />
                     Your browser does not support the video tag.
                 </video>
@@ -81,7 +86,7 @@ const btsPhotos = [
                             alt={photo.title} 
                             loading="lazy" 
                             class="bts-img"
-                            onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=BTS+Image'"
+                            onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/ffffff?text=Image+Missing';"
                         />
                         <div class="bts-label">{photo.title}</div>
                     </div>
@@ -344,30 +349,3 @@ const btsPhotos = [
     }
 </style>
 
-<script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.from(".gsap-fade", {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power2.out"
-    });
-
-    gsap.utils.toArray('.gsap-section').forEach((section: any) => {
-        gsap.from(section, {
-            scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-            },
-            y: 40,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out"
-        });
-    });
-</script>

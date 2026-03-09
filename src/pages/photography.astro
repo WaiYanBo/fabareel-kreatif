@@ -99,8 +99,10 @@ export const photos = [
                         src={photo.src} 
                         alt={photo.description} 
                         loading="lazy" 
+                        width="600" 
+                        height="400"
                         class="masonry-img"
-                        onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Image+Missing'"
+                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/ffffff?text=Image+Missing';"
                     />
                     <div class="masonry-overlay">
                         <span class="overlay-category">{photo.category}</span>
@@ -258,37 +260,3 @@ export const photos = [
     }
 </style>
 
-<script>
-    import { gsap } from "gsap";
-
-    gsap.from(".gsap-fade", {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power2.out"
-    });
-
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.masonry-item');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const filterValue = btn.getAttribute('data-filter');
-
-            galleryItems.forEach(item => {
-                const itemCategory = item.getAttribute('data-category');
-                
-                if (filterValue === 'all' || filterValue === itemCategory) {
-                    item.classList.remove('hidden');
-                    gsap.fromTo(item, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 });
-                } else {
-                    item.classList.add('hidden');
-                }
-            });
-        });
-    });
-</script>

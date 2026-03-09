@@ -1,20 +1,50 @@
 ---
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
+
 interface Props {
     title: string;
+    description?: string;
+    image?: string;
 }
-const { title } = Astro.props;
+
+const { 
+    title, 
+    // Fallback description if a page doesn't specify one
+    description = "A Bumiputera-owned strategic communication agency. Visual excellence from local summits to global frontiers.",
+    // Fallback image (using your hero poster) for WhatsApp/LinkedIn previews
+    image = "/images/hero-poster.webp" 
+} = Astro.props;
+
+// Generate absolute URLs for the meta tags (Astro requires this for OG images)
+// Make sure to update 'https://yourdomain.com' with the actual live domain later!
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://fabareelkreatif.com');
+const ogImageURL = new URL(image, canonicalURL);
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="description" content="Photography and Videography by Fabareel Kreatif" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/png" href="/favicon.png" />
+        
         <title>{title}</title>
+        <meta name="title" content={title} />
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalURL} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImageURL} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalURL} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={ogImageURL} />
     </head>
     <body>
         <div class="modern-bg-elements">
@@ -169,3 +199,39 @@ const { title } = Astro.props;
         100% { transform: translate(-60px, 40px) scale(0.85); }
     }
 </style>
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    // Only register and run if we are in the browser
+    if (typeof window !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Global Hero/Fade Animations (Runs immediately)
+        gsap.from(".gsap-hero, .gsap-fade", {
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.1
+        });
+
+        // 2. Global Scroll Sections (Runs on scroll)
+        // We use a slightly more generic class like .gsap-section or .client-category
+        const scrollElements = gsap.utils.toArray('.gsap-section, .client-category');
+        
+        scrollElements.forEach((section: any) => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+    }
+</script>
