@@ -2,301 +2,293 @@
 // src/pages/photography.astro
 import Layout from '../layouts/Layout.astro';
 
-// We added an 'id' to each category so the Javascript knows which gallery to open.
-// You can also add an array of 'galleryImages' here later when you have more photos.
-const categories = [
-  { id: "weddings", title: "Weddings & Engagements", desc: "Capturing your timeless moments.", img: "/images/wedding.webp" },
-  { id: "corporate", title: "Corporate & Government", desc: "VIP summits and executive events.", img: "/images/vip-anwar.webp" },
-  { id: "documentary", title: "Documentary & Photojournalism", desc: "Raw storytelling across the globe.", img: "/images/africa-doc.webp" },
-  { id: "broadcast", title: "National TV & Broadcast", desc: "Behind-the-scenes and set stills.", img: "/images/studio-desk.webp" },
-  { id: "ceremony", title: "Cultural & Ceremonial", desc: "Honoring traditions and heritage.", img: "/images/ceremony.webp" },
-  { id: "commercial", title: "Commercial & Advertising", desc: "High-end product and brand shoots.", img: "/images/commercial.webp" },
-  { id: "live", title: "Live Concerts & Events", desc: "High-energy crowd and stage coverage.", img: "/images/live-event.webp" },
-  { id: "portrait", title: "Studio Portraiture", desc: "Professional headshots and editorial.", img: "/images/portrait.webp" }
+// Your massive photo collection - Paths and extensions perfectly fixed!
+export const photos = [
+  // Original Gallery (Numbers 1-45)
+  { src: "/gallery/numbers/1.webp", category: "Corporate", description: "Public Mutual Branch Annual Awards Nite" }, 
+  { src: "/gallery/numbers/2.webp", category: "Corporate", description: "13th World Islamic Economic Forum (WIEF)" }, 
+  { src: "/gallery/numbers/3.webp", category: "Royal", description: "Royal Ceremonial Walk" }, 
+  { src: "/gallery/numbers/4.webp", category: "Government", description: "ASEAN Senior Officials Meeting" }, 
+  { src: "/gallery/numbers/5.webp", category: "Government", description: "SOMCA Plus Japan Meeting" }, 
+  { src: "/gallery/numbers/6.webp", category: "Events", description: "Event Portfolio Montage (Sports, Dining, Corporate)" }, 
+  { src: "/gallery/numbers/7.webp", category: "Royal", description: "Official Parade and Group Photos" }, 
+  { src: "/gallery/numbers/8.webp", category: "Events", description: "SK TUDM Subang Graduation" }, 
+  { src: "/gallery/numbers/9.webp", category: "Royal", description: "Royal Investiture and Wedding Ceremony" }, 
+  { src: "/gallery/numbers/10.webp", category: "Production", description: "Live Event Broadcasting Production" }, 
+  { src: "/gallery/numbers/11.webp", category: "Royal", description: "Royal and Official Ceremonies Montage" }, 
+  { src: "/gallery/numbers/12.webp", category: "Government", description: "ASEAN Senior Officials Meeting" }, 
+  { src: "/gallery/numbers/13.webp", category: "Events", description: "SK TUDM Subang Graduation" }, 
+  { src: "/gallery/numbers/14.webp", category: "Corporate", description: "Public Mutual Branch Annual Awards Nite" }, 
+  { src: "/gallery/numbers/15.webp", category: "Corporate", description: "13th World Islamic Economic Forum (WIEF)" }, 
+  { src: "/gallery/numbers/16.webp", category: "Corporate", description: "AFC 35th Congress Kuala Lumpur" }, 
+  { src: "/gallery/numbers/17.webp", category: "Royal", description: "Sultan of Selangor 72nd Birthday Celebration" }, 
+  { src: "/gallery/numbers/18.webp", category: "Government", description: "ASEAN Meeting Delegate Discussion" }, 
+  { src: "/gallery/numbers/19.webp", category: "Events", description: "Event Portfolio Montage (Sports, Dining, Corporate)" }, 
+  { src: "/gallery/numbers/20.webp", category: "Corporate", description: "Official Executive Group Portrait" }, 
+  { src: "/gallery/numbers/21.webp", category: "Corporate", description: "WIEF and ASEAN meetings collage" }, 
+  { src: "/gallery/numbers/22.webp", category: "Corporate", description: "Executive networking group photo" }, 
+  { src: "/gallery/numbers/23.webp", category: "Royal", description: "Royal Ceremonial Walk" }, 
+  { src: "/gallery/numbers/24.webp", category: "Production", description: "Wide view of live event production control desk" }, 
+  { src: "/gallery/numbers/25.webp", category: "Production", description: "Operating a vision mixer for live broadcasting" }, 
+  { src: "/gallery/numbers/26.webp", category: "Events", description: "Montage of various events including Future Education conference" }, 
+  { src: "/gallery/numbers/27.webp", category: "Production", description: "Professional video camera capturing a stage event" }, 
+  { src: "/gallery/numbers/28.webp", category: "Production", description: "Vision mixer board and multi-view monitor setup" }, 
+  { src: "/gallery/numbers/29.webp", category: "Royal", description: "Sultan of Selangor 72nd Birthday Celebration collage" }, 
+  { src: "/gallery/numbers/30.webp", category: "Government", description: "Delegate at an international summit" }, 
+  { src: "/gallery/numbers/31.webp", category: "Royal", description: "Royal Investiture and Wedding Ceremony collage" }, 
+  { src: "/gallery/numbers/32.webp", category: "Government", description: "ASEAN delegates seated at conference table" }, 
+  { src: "/gallery/numbers/33.webp", category: "Production", description: "Wide shot of stage from a live production camera" }, 
+  { src: "/gallery/numbers/34.webp", category: "Events", description: "SK TUDM Subang individual student graduation portrait" }, 
+  { src: "/gallery/numbers/35.webp", category: "Events", description: "Future Education conference and event montage" }, 
+  { src: "/gallery/numbers/36.webp", category: "Government", description: "International delegates reviewing documents" }, 
+  { src: "/gallery/numbers/37.webp", category: "Events", description: "Event Portfolio Montage (Sports, Dining, Corporate)" }, 
+  { src: "/gallery/numbers/38.webp", category: "Corporate", description: "Professional studio portrait of a woman" }, 
+  { src: "/gallery/numbers/39.webp", category: "Events", description: "Future Education conference and event montage" }, 
+  { src: "/gallery/numbers/40.webp", category: "Corporate", description: "Professional studio portrait of a man in a suit" }, 
+  { src: "/gallery/numbers/41.webp", category: "Royal", description: "Royal Investiture and Wedding Ceremony collage" }, 
+  { src: "/gallery/numbers/42.webp", category: "Production", description: "Live event production control desk in auditorium" }, 
+  { src: "/gallery/numbers/43.webp", category: "Royal", description: "Royal and Official Ceremonies Montage" }, 
+  { src: "/gallery/numbers/44.webp", category: "Royal", description: "Sultan of Selangor 72nd Birthday Celebration collage" }, 
+  { src: "/gallery/numbers/45.webp", category: "Corporate", description: "Speaker presenting next to a Petronas Formula 1 car" }, 
+
+  // Newly Curated Additions (Alphabets)
+  { src: "/gallery/alphabets/SH.CW_288.webp", category: "Corporate", description: "Official Ecosystem Accelerator group photo" }, 
+  { src: "/gallery/alphabets/e.webp", category: "Events", description: "Guests toasting at a gala dinner" }, 
+  { src: "/gallery/alphabets/r.webp", category: "Corporate", description: "Speaker presenting at the podium" }, 
+  { src: "/gallery/alphabets/t.webp", category: "Events", description: "Performer singing on stage with spotlights" }, 
+  { src: "/gallery/alphabets/y.webp", category: "Events", description: "Model walking the runway in a colorful coat" }, 
+  { src: "/gallery/alphabets/u.webp", category: "Events", description: "Male model on the runway in a green patterned suit" }, 
+  { src: "/gallery/alphabets/i.webp", category: "Events", description: "Model on the runway in a pink tulle skirt" }, 
+  { src: "/gallery/alphabets/o.webp", category: "Events", description: "Artist performing on stage with dramatic atmospheric lighting" }, 
+  { src: "/gallery/alphabets/p.webp", category: "Events", description: "Male performer pointing to the crowd with dramatic red stage lighting" }, 
+  { src: "/gallery/alphabets/s.webp", category: "Events", description: "Traditional dancers performing on stage with an intricate LED backdrop" }, 
+  { src: "/gallery/alphabets/h.webp", category: "Events", description: "Energetic Bollywood dance performance on stage" }, 
+  { src: "/gallery/alphabets/v.webp", category: "Corporate", description: "Event host speaking at a podium with vibrant balloon decor" }, 
+  { src: "/gallery/alphabets/m.webp", category: "Events", description: "Five traditional Bollywood dancers performing on a beautifully lit stage" }, 
+  { src: "/gallery/alphabets/ww.webp", category: "Events", description: "Two female guests showcasing intricate traditional Bollywood attire" }, 
+  { src: "/gallery/alphabets/yy.webp", category: "Events", description: "Dynamic rear view of drum performers raising their sticks on stage" }, 
+  { src: "/gallery/alphabets/aa.webp", category: "Production", description: "Behind-the-scenes view of a professional camera recording a live speaker" }, 
+  { src: "/gallery/alphabets/rrr.webp", category: "Corporate", description: "Executives cutting a celebratory cake at a retro-themed annual dinner" }, 
+  { src: "/gallery/alphabets/yyy.webp", category: "Events", description: "Wide elevated view of the large-scale PSG Batik Raya open house hall" }, 
+  { src: "/gallery/alphabets/ppp.webp", category: "Corporate", description: "VIP guest signing a framed yellow football jersey on an easel" }, 
+  { src: "/gallery/alphabets/fff.webp", category: "Events", description: "Man handing out green packets to children at a festive celebration" } 
 ];
 ---
 
-<Layout title="Photography | Fabareel Kreatif">
-  <main>
-    <section class="photo-hero" style="min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 4rem;">
-      <h1 class="gsap-hero" style="font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 1rem;">
-        Photography <span style="color: var(--text-muted);">Services</span>
-      </h1>
-      <p class="gsap-hero" style="font-size: 1.25rem; max-width: 600px; color: #d1d5db;">
-        From intimate weddings to international documentaries and national broadcasts. We freeze the moments that matter most.
-      </p>
-    </section>
-
-    <section class="category-section" style="padding-top: 0;">
-      <div class="category-grid">
-        {categories.map((cat) => (
-          <div class="category-card gsap-card open-modal-btn" data-target={cat.id}>
-            <div class="img-container" style="background-color: #1e293b;">
-              <img src={cat.img} alt={cat.title} loading="lazy" />
-            </div>
-            <div class="card-overlay">
-              <h3 class="card-title">{cat.title}</h3>
-              <p class="card-desc">{cat.desc}</p>
-              <span class="view-btn">View Gallery &rarr;</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <div id="gallery-modal" class="modal-overlay">
-      <div class="modal-content">
+<Layout title="Photography Portfolio | Fabareel Kreatif">
+    <main class="page-wrapper">
         
-        <div class="modal-header">
-          <h2 id="modal-title" style="font-size: 2rem; margin: 0;">Category Title</h2>
-          <button id="close-modal" class="close-btn">&times;</button>
+        <header class="page-header gsap-fade">
+            <h1 class="page-title">OUR <span style="color: var(--text-muted); font-weight: 400;">LENS</span></h1>
+            <p class="page-subtitle">A curated collection of visual excellence. From royal protocols to dynamic live broadcasts.</p>
+        </header>
+
+        <div class="filter-container gsap-fade">
+            <button class="filter-btn active" data-filter="all">All Shots</button>
+            <button class="filter-btn" data-filter="Corporate">Corporate & VIP</button>
+            <button class="filter-btn" data-filter="Royal">Royal Protocol</button>
+            <button class="filter-btn" data-filter="Government">Government</button>
+            <button class="filter-btn" data-filter="Events">Events & Culture</button>
+            <button class="filter-btn" data-filter="Production">Behind the Scenes</button>
         </div>
 
-        <div class="modal-gallery-grid">
-            <img src="/images/africa-doc.webp" alt="Gallery Image 1" class="modal-img" loading="lazy" />
-            <img src="/images/studio-desk.webp" alt="Gallery Image 2" class="modal-img" loading="lazy" />
-            <img src="/images/vip-anwar.webp" alt="Gallery Image 3" class="modal-img" loading="lazy" />
-            <img src="/images/ceremony.webp" alt="Gallery Image 4" class="modal-img" loading="lazy" />
-            <img src="/images/japan-crew.webp" alt="Gallery Image 5" class="modal-img" loading="lazy" />
-            <img src="/images/wedding.webp" alt="Gallery Image 6" class="modal-img" loading="lazy" />
+        <div class="masonry-grid gsap-fade">
+            {photos.map((photo) => (
+                <div class="masonry-item" data-category={photo.category}>
+                    <img 
+                        src={photo.src} 
+                        alt={photo.description} 
+                        loading="lazy" 
+                        class="masonry-img"
+                        onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Image+Missing'"
+                    />
+                    <div class="masonry-overlay">
+                        <span class="overlay-category">{photo.category}</span>
+                        <p class="overlay-desc">{photo.description}</p>
+                    </div>
+                </div>
+            ))}
         </div>
 
-      </div>
-    </div>
-
-  </main>
+    </main>
 </Layout>
 
 <style>
-  /* --- Grid Layout for Categories --- */
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
+    .page-wrapper {
+        padding-top: 120px; 
+        padding-bottom: 6rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        min-height: 100vh;
+    }
 
-  .category-card {
-    position: relative;
-    height: 400px; 
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-  }
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 0 2rem;
+    }
 
-  .img-container {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    inset: 0;
-  }
+    .page-title {
+        font-size: clamp(3rem, 6vw, 4.5rem);
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: white;
+        margin-bottom: 1rem;
+    }
 
-  .img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(40%) brightness(0.7);
-    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.7s ease;
-  }
+    .page-subtitle {
+        color: #d1d5db;
+        font-size: 1.15rem;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
 
-  .category-card:hover img {
-    transform: scale(1.08);
-    filter: grayscale(0%) brightness(0.9);
-  }
+    .filter-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 4rem;
+        padding: 0 2rem;
+    }
 
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem;
-    color: white;
-  }
+    .filter-btn {
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid #334155;
+        padding: 0.6rem 1.5rem;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
 
-  .card-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    transform: translateY(20px);
-    transition: transform 0.4s ease;
-  }
+    .filter-btn:hover, .filter-btn.active {
+        background: white;
+        color: black;
+        border-color: white;
+    }
 
-  .card-desc {
-    color: #cbd5e1;
-    font-size: 0.95rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    margin-bottom: 1rem;
-  }
+    .masonry-grid {
+        column-count: 3;
+        column-gap: 1.5rem;
+        padding: 0 2rem;
+    }
 
-  .view-btn {
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #fff;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
-  }
+    .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 1.5rem;
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
 
-  .category-card:hover .card-title,
-  .category-card:hover .card-desc,
-  .category-card:hover .view-btn {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    .masonry-item.hidden {
+        display: none; 
+    }
 
-  /* === LIGHTBOX MODAL STYLES === */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(5, 5, 5, 0.95);
-    backdrop-filter: blur(10px); /* Glass aesthetic */
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-  }
+    .masonry-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        transition: transform 0.5s ease;
+    }
 
-  /* Add this class via JS to open the modal */
-  .modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
+    .masonry-item:hover .masonry-img {
+        transform: scale(1.05); 
+    }
 
-  .modal-content {
-    width: 90%;
-    max-width: 1200px;
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    transform: translateY(30px);
-    transition: transform 0.4s ease;
-  }
+    .masonry-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+    }
 
-  .modal-overlay.active .modal-content {
-    transform: translateY(0);
-  }
+    .masonry-item:hover .masonry-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 2rem;
-  }
+    .overlay-category {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
 
-  .close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 3rem;
-    line-height: 1;
-    cursor: pointer;
-    transition: color 0.2s ease;
-  }
+    .overlay-desc {
+        color: white;
+        font-size: 1rem;
+        margin: 0;
+        line-height: 1.4;
+        font-weight: 500;
+    }
 
-  .close-btn:hover {
-    color: var(--text-muted);
-  }
+    @media (max-width: 1024px) {
+        .masonry-grid {
+            column-count: 2;
+        }
+    }
 
-  /* Masonry-style internal grid */
-  .modal-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    overflow-y: auto; /* Lets the user scroll inside the modal if there are many photos */
-    padding-right: 1rem;
-    padding-bottom: 2rem;
-  }
-
-  /* Custom Scrollbar for the modal */
-  .modal-gallery-grid::-webkit-scrollbar {
-    width: 8px;
-  }
-  .modal-gallery-grid::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.05);
-    border-radius: 4px;
-  }
-  .modal-gallery-grid::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.2);
-    border-radius: 4px;
-  }
-
-  .modal-img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: transform 0.3s ease;
-  }
-
-  .modal-img:hover {
-    transform: scale(1.02);
-  }
+    @media (max-width: 600px) {
+        .masonry-grid {
+            column-count: 1;
+        }
+        .masonry-overlay {
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);
+        }
+    }
 </style>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { gsap } from "gsap";
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  // --- GSAP Animations ---
-  gsap.from(".gsap-hero", { y: 30, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2 });
-  gsap.from(".gsap-card", { scrollTrigger: { trigger: ".category-grid", start: "top 85%" }, y: 50, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" });
-
-  // --- Modal Logic ---
-  const modal = document.getElementById('gallery-modal');
-  const closeModalBtn = document.getElementById('close-modal');
-  const modalTitle = document.getElementById('modal-title');
-  const openBtns = document.querySelectorAll('.open-modal-btn');
-
-  // Open Modal
-  openBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Get the title from the card we clicked and set it in the modal
-      const titleElement = btn.querySelector('.card-title');
-      if (titleElement) {
-        modalTitle.textContent = titleElement.textContent;
-      }
-      
-      // Prevent body scrolling while modal is open
-      document.body.style.overflow = 'hidden'; 
-      modal.classList.add('active');
+    gsap.from(".gsap-fade", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out"
     });
-  });
 
-  // Close Modal (via button)
-  closeModalBtn.addEventListener('click', () => {
-    document.body.style.overflow = ''; // Restore scrolling
-    modal.classList.remove('active');
-  });
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.masonry-item');
 
-  // Close Modal (by clicking outside the content)
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      document.body.style.overflow = '';
-      modal.classList.remove('active');
-    }
-  });
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-  // Close Modal (via Escape key)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      document.body.style.overflow = '';
-      modal.classList.remove('active');
-    }
-  });
-</script>     
+            const filterValue = btn.getAttribute('data-filter');
+
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                
+                if (filterValue === 'all' || filterValue === itemCategory) {
+                    item.classList.remove('hidden');
+                    gsap.fromTo(item, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 });
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>

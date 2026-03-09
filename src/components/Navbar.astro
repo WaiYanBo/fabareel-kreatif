@@ -79,19 +79,20 @@
 </header>
   
 <style>
-  /* 1. Default State: Transparent */
+  /* 1. Locked Height and Transparent Default State */
   .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    height: 80px; /* STRICT HEIGHT FOR PERFECT ALIGNMENT */
     z-index: 1000;
     background: transparent;
     border-bottom: 1px solid transparent;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
-  /* 2. THE FIX: Solid state applied when scrolled OR when the mouse hovers over the navbar */
+  /* 2. Solid state applied when scrolled OR hovered */
   .site-header.nav-scrolled,
   .site-header:hover {
     background: rgba(10, 10, 10, 0.95);
@@ -105,13 +106,15 @@
     transform: translateY(-100%);
   }
 
+  /* Container perfectly fills the 80px height */
   .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
+    height: 100%;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
   }
 
   .brand-group {
@@ -149,18 +152,22 @@
 
   .nav-links {
     display: flex;
-    gap: 2rem; 
+    gap: 2.5rem; 
     align-items: center;
     height: 100%; 
   }
 
+  /* Links take up the full vertical height to eliminate hover gaps */
   .nav-links > a, .mega-trigger {
     color: #e5e7eb;
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
     transition: color 0.3s ease;
-    padding: 1.5rem 0; 
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
   }
 
   .nav-links > a:hover, .mega-trigger:hover {
@@ -168,18 +175,17 @@
   }
 
   .mega-wrapper {
-    position: static; 
     height: 100%; 
     display: flex;
     align-items: center;
   }
 
+  /* Menu starts EXACTLY at the 80px bottom edge */
   .mega-menu {
     position: absolute;
-    top: 100%; 
+    top: 80px; 
     left: 0;
     width: 100vw;
-    /* Matches the solid header perfectly so they blend together */
     background: rgba(10, 10, 10, 0.95); 
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -191,16 +197,6 @@
     box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   }
 
-  .mega-menu::before {
-    content: '';
-    position: absolute;
-    top: -40px; 
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background: transparent; 
-  }
-
   .mega-wrapper:hover .mega-menu {
     opacity: 1;
     visibility: visible;
@@ -208,20 +204,20 @@
     pointer-events: auto;
   }
 
+  /* Alignment matches the main nav-container perfectly */
   .mega-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 2rem;
+    padding: 3rem 2rem 4rem 2rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 4rem;
   }
 
-  /* NEW: Typography-based Grid */
   .mega-grid-text {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .mega-text-item {
@@ -229,21 +225,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 1rem;
+    padding-bottom: 0.8rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: border-color 0.3s ease;
   }
 
   .mega-main-text {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     transition: transform 0.3s ease, color 0.3s ease;
   }
 
   .mega-arrow {
     color: var(--text-muted);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     opacity: 0;
     transform: translateX(-10px);
     transition: all 0.3s ease;

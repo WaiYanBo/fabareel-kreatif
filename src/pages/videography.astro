@@ -1,0 +1,370 @@
+---
+// src/pages/videography.astro
+import Layout from '../layouts/Layout.astro';
+
+// We are pulling a few of your best "Production" photos to show off the equipment
+const btsPhotos = [
+  { src: "/gallery/numbers/27.webp", title: "Cinematic 4K Cameras" },
+  { src: "/gallery/numbers/24.webp", title: "Live Control Desk" },
+  { src: "/gallery/numbers/25.webp", title: "Vision Mixing" },
+  { src: "/gallery/alphabets/aa.webp", title: "Professional Rigging" }
+];
+---
+
+<Layout title="Motion & Broadcast | Fabareel Kreatif">
+    <main class="page-wrapper">
+        
+        <header class="page-header gsap-fade">
+            <h1 class="page-title">MOTION & <span style="color: var(--text-muted); font-weight: 400;">BROADCAST</span></h1>
+            <p class="page-subtitle">End-to-end cinematic production, from storyboard concepts to live multi-cam broadcasting.</p>
+        </header>
+
+        <div class="showreel-container gsap-fade">
+            <div class="video-frame">
+                
+                <div class="watermark-overlay">
+                    <span class="watermark-main">SAMPLE</span>
+                    <span class="watermark-sub">FABAREEL KREATIF</span>
+                </div>
+
+                <video 
+                    class="showreel-video"
+                    controls 
+                    playsinline 
+                    preload="metadata"
+                >
+                    <source src="/videos/videography.webm" type="video/webm" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <section class="workflow-section gsap-section">
+            <h2 class="section-title">Our Production Pipeline</h2>
+            <div class="workflow-grid">
+                
+                <div class="workflow-card">
+                    <span class="step-number">01</span>
+                    <h3 class="step-title">Pre-Production</h3>
+                    <p class="step-desc">Strategic planning, storyboarding, scriptwriting, and location scouting to ensure your vision is perfectly aligned before the cameras even roll.</p>
+                </div>
+
+                <div class="workflow-card">
+                    <span class="step-number">02</span>
+                    <h3 class="step-title">Production & Broadcast</h3>
+                    <p class="step-desc">Utilizing cinema-grade 4K cameras, drone operations, and professional lighting. We also handle live multi-cam setups for high-stakes corporate summits.</p>
+                </div>
+
+                <div class="workflow-card">
+                    <span class="step-number">03</span>
+                    <h3 class="step-title">Post-Production</h3>
+                    <p class="step-desc">Polishing the raw footage with industry-standard color grading, motion graphics, audio mixing, and professional voice-over recordings.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="arsenal-section gsap-section">
+            <h2 class="section-title">The Technical Arsenal</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                We don't just point and shoot. Our team is equipped with broadcast-standard gear to handle massive live events and VIP coverage.
+            </p>
+            
+            <div class="bts-grid">
+                {btsPhotos.map((photo) => (
+                    <div class="bts-card">
+                        <img 
+                            src={photo.src} 
+                            alt={photo.title} 
+                            loading="lazy" 
+                            class="bts-img"
+                            onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=BTS+Image'"
+                        />
+                        <div class="bts-label">{photo.title}</div>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <section class="gsap-section" style="text-align: center; margin-top: 6rem;">
+            <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Have a project in mind?</h2>
+            <a href="/#contact" class="primary-btn">Let's Discuss Your Video</a>
+        </section>
+
+    </main>
+</Layout>
+
+<style>
+    .page-wrapper {
+        padding-top: 120px; 
+        padding-bottom: 6rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    /* Header Styles */
+    .page-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .page-title {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: white;
+        margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+        color: #d1d5db;
+        font-size: 1.15rem;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Showreel Embed */
+    .showreel-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto 8rem auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .video-frame {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #050505;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+/* NEW: The Flawless Text-Indent Method */
+.watermark-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        pointer-events: none; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%; 
+        opacity: 0.25; 
+        text-align: center;
+        user-select: none; 
+    }
+
+    .watermark-main {
+        display: block; /* Required for text-indent to work */
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        font-weight: 900;
+        color: white;
+        letter-spacing: 0.2em; 
+        text-indent: 0.2em; /* This perfectly counters the letter-spacing on the last letter */
+        line-height: 1;
+        text-shadow: 0px 4px 20px rgba(0,0,0,0.8);
+    }
+
+    .watermark-sub {
+        display: block; /* Required for text-indent to work */
+        font-size: clamp(0.75rem, 2vw, 1.5rem);
+        font-weight: 600;
+        color: white;
+        letter-spacing: 0.4em;
+        text-indent: 0.4em; /* Perfectly counters the letter-spacing */
+        margin-top: 0.5rem;
+        text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .showreel-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block; 
+    }
+
+    /* Workflow Section */
+    .workflow-section {
+        margin-bottom: 8rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .workflow-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .workflow-card {
+        background: rgba(30, 41, 59, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 3rem 2rem;
+        border-radius: 12px;
+        position: relative;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .workflow-card:hover {
+        transform: translateY(-5px);
+        background: rgba(30, 41, 59, 0.6);
+    }
+
+    .step-number {
+        font-size: 4rem;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.05);
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        line-height: 1;
+        pointer-events: none;
+    }
+
+    .step-title {
+        font-size: 1.5rem;
+        color: white;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .step-desc {
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-size: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Arsenal / BTS Section */
+    .arsenal-section {
+        margin-bottom: 4rem;
+    }
+
+    .bts-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+
+    .bts-card {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        aspect-ratio: 4 / 5;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bts-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .bts-card:hover .bts-img {
+        transform: scale(1.05);
+    }
+
+    .bts-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 1.5rem 1rem 1rem 1rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+        color: white;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-align: center;
+    }
+
+    /* Buttons */
+    .primary-btn {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background: white;
+        color: black;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .primary-btn:hover {
+        background: #e5e7eb;
+        transform: translateY(-3px);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 900px) {
+        .workflow-grid {
+            grid-template-columns: 1fr;
+        }
+        .bts-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .page-wrapper {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        .showreel-container {
+            margin-bottom: 4rem;
+        }
+
+        .bts-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from(".gsap-fade", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out"
+    });
+
+    gsap.utils.toArray('.gsap-section').forEach((section: any) => {
+        gsap.from(section, {
+            scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out"
+        });
+    });
+</script>
