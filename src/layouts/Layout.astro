@@ -16,7 +16,7 @@ const {
     image = "/images/hero-poster.webp" 
 } = Astro.props;
 
-// Generate absolute URLs for the meta tags (Astro requires this for OG images)
+
 // Make sure to update 'https://yourdomain.com' with the actual live domain later!
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://fabareelkreatif.com');
 const ogImageURL = new URL(image, canonicalURL);
