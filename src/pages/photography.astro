@@ -2,7 +2,7 @@
 // src/pages/photography.astro
 import Layout from '../layouts/Layout.astro';
 
-// Your massive photo collection - Paths and extensions perfectly fixed!
+// Your massive photo collection
 export const photos = [
   // Original Gallery (Numbers 1-45)
   { src: "/gallery/numbers/1.webp", category: "Corporate", description: "Public Mutual Branch Annual Awards Nite" }, 
@@ -98,8 +98,6 @@ export const photos = [
                         src={photo.src} 
                         alt={photo.description} 
                         loading="lazy" 
-                        width="600" 
-                        height="400"
                         class="masonry-img"
                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/ffffff?text=Image+Missing';"
                     />
@@ -112,6 +110,14 @@ export const photos = [
         </div>
 
     </main>
+
+    <div id="image-modal" class="modal">
+        <button class="modal-close" aria-label="Close Modal">&times;</button>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="Full Screen Preview" />
+            <div id="modal-caption" class="modal-caption"></div>
+        </div>
+    </div>
 </Layout>
 
 <style>
@@ -172,21 +178,20 @@ export const photos = [
         border-color: white;
     }
 
-    /* --- NEW PREMIUM GRID LAYOUT --- */
     /* --- TRUE MASONRY WALL (NO CROPPING, WITH CLEAN GAPS) --- */
     .masonry-grid {
         column-count: 3; 
-        column-gap: 1rem; /* Clean gap between columns */
+        column-gap: 1rem; 
         padding: 0 2rem;
     }
 
     .masonry-item {
         break-inside: avoid;
-        margin-bottom: 1rem; /* Matches the column gap for perfect spacing */
+        margin-bottom: 1rem; 
         position: relative;
         overflow: hidden;
-        border-radius: 6px; /* Gives each photo a subtle "card" feel */
-        cursor: pointer;
+        border-radius: 6px; 
+        cursor: zoom-in; /* Let users know they can click to expand */
         opacity: 1;
         transition: opacity 0.4s ease;
     }
@@ -197,12 +202,11 @@ export const photos = [
 
     .masonry-img {
         width: 100%;
-        height: auto; /* ZERO CROPPING: photos stay their natural height */
+        height: auto; 
         display: block; 
         transition: transform 0.5s ease, filter 0.4s ease;
     }
 
-    /* Dim the image slightly on hover so the text pops */
     .masonry-item:hover .masonry-img {
         transform: scale(1.05); 
         filter: brightness(0.4); 
@@ -242,6 +246,73 @@ export const photos = [
         font-weight: 500;
     }
 
+    /* --- NEW: LIGHTBOX MODAL CSS --- */
+    .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999; /* Ensures it sits over the navbar */
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-content {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #modal-image {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain; /* Prevents stretching or cropping in modal */
+        border-radius: 8px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-caption {
+        color: white;
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-align: center;
+        max-width: 800px;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 25px;
+        right: 35px;
+        color: white;
+        font-size: 3rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        line-height: 1;
+        transition: transform 0.2s ease, color 0.2s ease;
+        z-index: 10000;
+    }
+
+    .modal-close:hover {
+        transform: scale(1.1);
+        color: #f97316; /* Brand orange hover effect */
+    }
+
     /* --- RESPONSIVE ADJUSTMENTS --- */
     @media (max-width: 1024px) {
         .masonry-grid {
@@ -252,35 +323,41 @@ export const photos = [
     @media (max-width: 600px) {
         .masonry-grid {
             column-count: 1;
-            padding: 0 1rem; /* Keeps a small border on mobile */
+            padding: 0 1rem; 
         }
         .masonry-overlay {
             opacity: 1;
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
         }
+        .modal-close {
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+        }
     }
 </style>
+
 <script>
-    // Filtering Logic for the Photography Grid
     if (typeof window !== "undefined") {
         const filterBtns = document.querySelectorAll('.filter-btn');
         const masonryItems = document.querySelectorAll('.masonry-item');
+        
+        // --- Lightbox Variables ---
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-image') as HTMLImageElement;
+        const modalCaption = document.getElementById('modal-caption');
+        const closeBtn = document.querySelector('.modal-close');
 
+        // 1. FILTERING LOGIC
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // 1. Remove active class from all buttons
                 filterBtns.forEach(b => b.classList.remove('active'));
-                
-                // 2. Add active class to clicked button
                 btn.classList.add('active');
 
-                // 3. Get the category we want to filter by
                 const filterValue = btn.getAttribute('data-filter');
 
-                // 4. Show/Hide items based on category
                 masonryItems.forEach((item) => {
                     const itemCategory = item.getAttribute('data-category');
-                    
                     if (filterValue === 'all' || itemCategory === filterValue) {
                         item.classList.remove('hidden');
                     } else {
@@ -289,18 +366,61 @@ export const photos = [
                 });
             });
         });
-        // NEW: Check for URL parameters to auto-filter on page load
+
+        // Handle URL Parameters for Auto-Filtering
         const urlParams = new URLSearchParams(window.location.search);
         const filterParam = urlParams.get('filter');
-        
         if (filterParam) {
-            // Find the button that matches the URL parameter
-            const targetBtn = document.querySelector(`.filter-btn[data-filter="${filterParam}"]`);
-            if (targetBtn) {
-                // Programmatically click it to trigger your existing layout logic
-                targetBtn.click(); 
-            }
+            const targetBtn = document.querySelector(`.filter-btn[data-filter="${filterParam}"]`) as HTMLElement;
+            if (targetBtn) targetBtn.click(); 
         }
+
+        // 2. LIGHTBOX (MODAL) LOGIC
+        masonryItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('.masonry-img') as HTMLImageElement;
+                const desc = item.querySelector('.overlay-desc');
+                const category = item.querySelector('.overlay-category');
+                
+                // Set the modal image and text
+                if (img) modalImg.src = img.src;
+                if (desc && category) {
+                    modalCaption.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;">${category.textContent}</span>${desc.textContent}`;
+                }
+
+                // Open modal and prevent body from scrolling
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        // Close Modal Function
+        const closeModal = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            
+            // Wait for fade out animation before removing image source
+            setTimeout(() => {
+                modalImg.src = '';
+                modalCaption.innerHTML = '';
+            }, 300);
+        };
+
+        // Close when clicking the X
+        if(closeBtn) closeBtn.addEventListener('click', closeModal);
+        
+        // Close when clicking the dark background outside the image
+        if(modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        // Close when pressing the Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
     }
 </script>
-
