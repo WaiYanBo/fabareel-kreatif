@@ -27,7 +27,6 @@ export const photos = [
   { src: "/gallery/numbers/20.webp", category: "Corporate", description: "Official Executive Group Portrait" }, 
   { src: "/gallery/numbers/21.webp", category: "Corporate", description: "WIEF and ASEAN meetings collage" }, 
   { src: "/gallery/numbers/22.webp", category: "Corporate", description: "Executive networking group photo" }, 
-  { src: "/gallery/numbers/23.webp", category: "Royal", description: "Royal Ceremonial Walk" }, 
   { src: "/gallery/numbers/24.webp", category: "Production", description: "Wide view of live event production control desk" }, 
   { src: "/gallery/numbers/25.webp", category: "Production", description: "Operating a vision mixer for live broadcasting" }, 
   { src: "/gallery/numbers/26.webp", category: "Events", description: "Montage of various events including Future Education conference" }, 
@@ -173,22 +172,23 @@ export const photos = [
         border-color: white;
     }
 
+    /* --- NEW PREMIUM GRID LAYOUT --- */
+    /* --- TRUE MASONRY WALL (NO CROPPING, WITH CLEAN GAPS) --- */
     .masonry-grid {
-        column-count: 3;
-        column-gap: 1.5rem;
+        column-count: 3; 
+        column-gap: 1rem; /* Clean gap between columns */
         padding: 0 2rem;
     }
 
     .masonry-item {
         break-inside: avoid;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem; /* Matches the column gap for perfect spacing */
         position: relative;
-        border-radius: 8px;
         overflow: hidden;
+        border-radius: 6px; /* Gives each photo a subtle "card" feel */
         cursor: pointer;
         opacity: 1;
-        transform: scale(1);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition: opacity 0.4s ease;
     }
 
     .masonry-item.hidden {
@@ -197,51 +197,52 @@ export const photos = [
 
     .masonry-img {
         width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 8px;
-        transition: transform 0.5s ease;
+        height: auto; /* ZERO CROPPING: photos stay their natural height */
+        display: block; 
+        transition: transform 0.5s ease, filter 0.4s ease;
     }
 
+    /* Dim the image slightly on hover so the text pops */
     .masonry-item:hover .masonry-img {
         transform: scale(1.05); 
+        filter: brightness(0.4); 
     }
 
     .masonry-overlay {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
-        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        inset: 0; 
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+        padding: 1.5rem; 
         opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.3s ease;
+        transition: all 0.4s ease;
     }
 
     .masonry-item:hover .masonry-overlay {
         opacity: 1;
-        transform: translateY(0);
     }
 
     .overlay-category {
-        color: var(--text-muted);
+        color: #d1d5db;
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 2px;
         font-weight: 700;
         display: block;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
     }
 
     .overlay-desc {
         color: white;
-        font-size: 1rem;
+        font-size: 0.95rem;
         margin: 0;
         line-height: 1.4;
         font-weight: 500;
     }
 
+    /* --- RESPONSIVE ADJUSTMENTS --- */
     @media (max-width: 1024px) {
         .masonry-grid {
             column-count: 2;
@@ -251,11 +252,11 @@ export const photos = [
     @media (max-width: 600px) {
         .masonry-grid {
             column-count: 1;
+            padding: 0 1rem; /* Keeps a small border on mobile */
         }
         .masonry-overlay {
             opacity: 1;
-            transform: translateY(0);
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
         }
     }
 </style>
