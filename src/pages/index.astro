@@ -3,6 +3,31 @@ import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/Gallery.astro';
 import Hero from '../components/Hero.astro';
 import Contact from '../components/Contact.astro';
+
+const regions = [
+  { name: "ASIA", countries: "Japan, China, Korea" },
+  { name: "SOUTHEAST ASIA", countries: "Indonesia, Thailand, Philippines, Cambodia, Brunei" },
+  { name: "MIDDLE EAST & EUROPE", countries: "Saudi Arabia, Turkey, Greece, Bosnia" },
+  { name: "AFRICA", countries: "Morocco, Malawi" }
+];
+
+// Coordinates mathematically locked to this specific SVG file
+const mapMarkers = [
+  { name: 'Morocco', top: '37.9%', left: '46.4%' },
+  { name: 'Bosnia', top: '30.0%', left: '53.3%' },
+  { name: 'Philippines', top: '51.5%', left: '83.8%' },
+  { name: 'Malawi', top: '67.9%', left: '57.3%' },
+  { name: 'Cambodia', top: '49.3%', left: '78.4%' },
+  { name: 'Japan', top: '32.1%', left: '86.4%' },
+  { name: 'Indonesia', top: '60.8%', left: '79.8%' },
+  { name: 'Thailand', top: '47.2%', left: '76.9%' },
+  { name: 'Korea', top: '34.3%', left: '83.8%' },
+  { name: 'Greece', top: '32.9%', left: '54.4%' },
+  { name: 'China', top: '35.7%', left: '78.0%' },
+  { name: 'Turkey', top: '32.1%', left: '57.3%' },
+  { name: 'Saudi Arabia', top: '42.9%', left: '61.0%' },
+  { name: 'Brunei', top: '54.3%', left: '80.6%' }
+];
 ---
 
 <Layout title="Fabareel Kreatif | Photography & Videography">
@@ -10,7 +35,7 @@ import Contact from '../components/Contact.astro';
         
         <Hero />
 
-        <section id="about-preview" class="gsap-section" style="max-width: 900px; text-align: center; margin-top: 8rem; padding: 0 2rem;">
+        <section id="about-preview" class="gsap-section" style="max-width: 900px; text-align: center; margin-top: 8rem; padding: 0 2rem; margin-left: auto; margin-right: auto;">
             <span style="color: var(--text-muted); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">Who We Are</span>
             <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem;">A Dynamic Bumiputera Production House</h2>
             <p style="font-size: 1.15rem; color: #d1d5db; line-height: 1.8; margin-bottom: 2rem;">
@@ -19,7 +44,7 @@ import Contact from '../components/Contact.astro';
             <a href="/about" class="outline-btn">Discover Our Story &rarr;</a>
         </section>
 
-        <section id="work" class="gsap-section" style="margin-top: 6rem; padding: 0 2rem;">
+        <section id="work" class="gsap-section" style="margin-top: 6rem; padding: 0 2rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
             <h2 style="font-size: 2.5rem; margin-bottom: 3rem; text-align: center;">Our Expertise</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                 <div class="expertise-card">
@@ -37,12 +62,56 @@ import Contact from '../components/Contact.astro';
             </div>
         </section>
 
-        <div class="gsap-section" style="margin-top: 4rem; padding: 0 2rem;">
+        <section id="global-reach" class="gsap-section" style="max-width: 1200px; margin: 8rem auto 4rem auto; padding: 0 2rem; text-align: center;">
+            <div class="map-content-header" style="max-width: 800px; margin: 0 auto 4rem auto;">
+                <span style="color: var(--text-muted); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">Global Footprint</span>
+                <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem;">International Production</h2>
+                <p style="color: #d1d5db; line-height: 1.8; font-size: 1.05rem;">
+                    Our lenses have captured stories across continents. From the bustling streets of Tokyo to the sweeping landscapes of Morocco, we deploy rapid-response crews globally.
+                </p>
+            </div>
+
+            <div class="map-layout-wrapper">
+                
+                <div class="map-visual">
+                    <img 
+                        src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" 
+                        alt="World Map" 
+                        class="world-map-img" 
+                    />
+                    
+                    {mapMarkers.map(marker => (
+                        <div 
+                            class="map-marker" 
+                            style={`top: ${marker.top}; left: ${marker.left};`}
+                            title={marker.name}
+                        >
+                            <div class="marker-pulse"></div>
+                            <div class="marker-core"></div>
+                        </div>
+                    ))}
+                </div>
+
+                <div class="region-grid-container" style="margin-top: 4rem; width: 100%;">
+                    <div class="region-list-grid">
+                        {regions.map(region => (
+                            <div class="region-card">
+                                <h4 class="region-title">{region.name}</h4>
+                                <p class="region-countries">{region.countries}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="gsap-section" style="margin-top: 6rem; padding: 0 2rem;">
             <h2 style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center;">Behind The Lens</h2>
             <Gallery />
         </div>
 
-        <section id="clients-preview" class="gsap-section" style="max-width: 1200px; text-align: center; margin-top: 6rem; padding: 0 2rem;">
+        <section id="clients-preview" class="gsap-section" style="max-width: 1200px; text-align: center; margin-top: 6rem; padding: 0 2rem; margin-left: auto; margin-right: auto;">
             <span style="color: var(--text-muted); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">Trusted By</span>
             <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 3rem;">Our Premier Partners</h2>
             <div class="client-grid-preview">
@@ -66,13 +135,14 @@ import Contact from '../components/Contact.astro';
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.3s ease, background 0.3s ease;
+            text-align: left;
         }
     
         .expertise-card:hover {
             transform: translateY(-5px);
             background: rgba(30, 41, 59, 0.8);
         }
-    
+
         .outline-btn {
             display: inline-block;
             padding: 0.8rem 2rem;
@@ -91,7 +161,108 @@ import Contact from '../components/Contact.astro';
             color: black;
             transform: translateY(-2px);
         }
-    
+
+        /* --- MAP LAYOUT FIXES --- */
+        .map-layout-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .map-visual {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: inline-block; /* Forces the container to physically shrink-wrap the image height */
+        }
+
+        .world-map-img {
+            width: 100%;
+            height: auto; 
+            display: block; /* Strips out any bottom spacing bugs */
+            opacity: 0.5; 
+            filter: invert(1) drop-shadow(0px 0px 8px rgba(255,255,255,0.2)); 
+            pointer-events: none;
+        }
+
+        /* DOTS */
+        .map-marker {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            transform: translate(-50%, -50%); 
+        }
+
+        .marker-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px; 
+            height: 4px;
+            background: #fbbf24; 
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .marker-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background: rgba(251, 191, 36, 0.2); 
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulse 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+
+        /* --- 4-COLUMN REGION CARDS FIX --- */
+        .region-list-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* FORCES 4 COLUMNS ON DESKTOP */
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .region-card {
+            background: rgba(15, 23, 42, 0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2.5rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+        }
+
+        .region-title {
+            color: white;
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .region-countries {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* CLIENTS PREVIEW */
         .client-grid-preview {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -117,12 +288,21 @@ import Contact from '../components/Contact.astro';
             background: rgba(30, 41, 59, 0.8);
             color: white;
         }
-    
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 1024px) {
+            .region-list-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2x2 grid on medium screens */
+            }
+        }
+
         @media (max-width: 768px) {
             .client-grid-preview {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .region-list-grid {
+                grid-template-columns: 1fr; /* Stacks cards on mobile */
+            }
         }
     </style>
 </Layout>
-
