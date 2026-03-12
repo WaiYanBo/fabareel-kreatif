@@ -1,0 +1,165 @@
+---
+const regions = [
+  { name: "ASIA", countries: "Japan, China, Korea" },
+  { name: "SOUTHEAST ASIA", countries: "Indonesia, Thailand, Philippines, Cambodia, Brunei" },
+  { name: "MIDDLE EAST & EUROPE", countries: "Saudi Arabia, Turkey, Greece, Bosnia" },
+  { name: "AFRICA", countries: "Morocco, Malawi" }
+];
+
+const mapMarkers = [
+  { name: 'Morocco', top: '38.6%', left: '46.2%' },
+  { name: 'Bosnia', top: '32.5%', left: '52.6%' },
+  { name: 'Philippines', top: '49.7%', left: '84.9%' },
+  { name: 'Malawi', top: '61.0%', left: '58.0%' },
+  { name: 'Cambodia', top: '47.7%', left: '78.4%' },
+  { name: 'Japan', top: '32.1%', left: '86.4%' },
+  { name: 'Indonesia', top: '58.2%', left: '80.0%' },
+  { name: 'Thailand', top: '46.2%', left: '77.2%' },
+  { name: 'Korea', top: '33.4%', left: '83.2%' },
+  { name: 'Greece', top: '35.2%', left: '53.8%' },
+  { name: 'China', top: '35.7%', left: '78.0%' },
+  { name: 'Turkey', top: '34.9%', left: '56.8%' },
+  { name: 'Saudi Arabia', top: '42.9%', left: '61.0%' },
+  { name: 'Brunei', top: '51.7%', left: '81.9%' }
+];
+---
+<section id="global-reach" class="gsap-section" style="max-width: 1200px; margin: 8rem auto 4rem auto; padding: 0 2rem; text-align: center;">
+    <div class="map-content-header" style="max-width: 800px; margin: 0 auto 4rem auto;">
+        <span style="color: var(--text-muted); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">Global Footprint</span>
+        <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem;">International Production</h2>
+        <p style="color: #d1d5db; line-height: 1.8; font-size: 1.05rem;">
+            Our lenses have captured stories across continents. From the bustling streets of Tokyo to the sweeping landscapes of Morocco, we deploy rapid-response crews globally.
+        </p>
+    </div>
+
+    <div class="map-layout-wrapper">
+        <div class="map-visual">
+            <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" 
+                alt="World Map" 
+                class="world-map-img" 
+            />
+            
+            {mapMarkers.map(marker => (
+                <div 
+                    class="map-marker" 
+                    style={`top: ${marker.top}; left: ${marker.left};`}
+                    title={marker.name}
+                >
+                    <div class="marker-pulse"></div>
+                    <div class="marker-core"></div>
+                </div>
+            ))}
+        </div>
+
+        <div class="region-grid-container" style="margin-top: 4rem; width: 100%;">
+            <div class="region-list-grid">
+                {regions.map(region => (
+                    <div class="region-card">
+                        <h4 class="region-title">{region.name}</h4>
+                        <p class="region-countries">{region.countries}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .map-layout-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .map-visual {
+        position: relative;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: inline-block;
+    }
+    .world-map-img {
+        width: 100%;
+        height: auto; 
+        display: block;
+        opacity: 0.5; 
+        filter: invert(1) drop-shadow(0px 0px 8px rgba(255,255,255,0.2)); 
+        pointer-events: none;
+    }
+    .map-marker {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        transform: translate(-50%, -50%); 
+    }
+    .marker-core {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 4px; 
+        height: 4px;
+        background: #fbbf24; 
+        border-radius: 50%;
+        z-index: 2;
+    }
+    .marker-pulse {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 24px;
+        height: 24px;
+        background: rgba(251, 191, 36, 0.2); 
+        border-radius: 50%;
+        z-index: 1;
+        animation: pulse 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes pulse {
+        0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+    .region-list-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        width: 100%;
+    }
+    .region-card {
+        background: rgba(15, 23, 42, 0.4); 
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 2.5rem 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 150px;
+    }
+    .region-title {
+        color: white;
+        font-size: 1.15rem;
+        margin-bottom: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .region-countries {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+    @media (max-width: 1024px) {
+        .region-list-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 768px) {
+        .region-list-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
